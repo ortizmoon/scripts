@@ -15,6 +15,6 @@ ______
 ### `install_nginx_proxy.sh`<br>
 Automatic installation of Nginx as a reverse proxy with predefined variables, domain name, automatic issuance, and renewal Let’s Encrypt certificates. Recommended to add an A-record with your hosting provider in advance.
 ______
-### `install_proxmox_ve`<br>
+### `install_proxmox_ve.sh`<br>
 Automatic installation of the latest Proxmox VE version on Debian, with predefined variables, in a non-interactive mode, including automatic boot disk selection, automatic mail configuration disabling, automatic creation of a user for PVE authentication, and automatic API token generation. The token file is saved in the home directory of the script’s user.
 ______
