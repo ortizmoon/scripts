@@ -3,9 +3,9 @@
 set -euo pipefail
 
 # Init var
-DOMAIN_NAME="yourdomain.com"
-CERTBOT_EMAIL="email@myservermail.com"
-PROXY_PASS="https://127.0.0.1:8006"
+read -rp "Enter domain name (ex, yourdomain.com): " DOMAIN_NAME
+read -rp "Enter email for Let's Encrypt (ex, email@myservermail.com): " CERTBOT_EMAIL
+read -rp "Enter proxyfied address (ex, https://127.0.0.1:8006): " PROXY_PASS
 NGINX_CONFIG="/etc/nginx/sites-available/$DOMAIN_NAME"
 
 # Install nginx and certbot
