@@ -5,31 +5,31 @@ set -euo pipefail
 # Init var
 read -rp "Enter domain name (ex, yourdomain.com): " DOMAIN_NAME
 read -rp "Enter email for Let's Encrypt (ex, email@myservermail.com): " CERTBOT_EMAIL
-read -rp "Enter proxyfied address (ex, https://127.0.0.1:8006): " PROXY_PASS
+read -rp "Enter proxyfied address (ex, http://127.0.0.1:8080): " PROXY_PASS
 NGINX_CONFIG="/etc/nginx/sites-available/$DOMAIN_NAME"
 
 # Install nginx and certbot
 sudo apt update && apt install -y nginx certbot python3-certbot-nginx
 
 # Make config 80 for deploy cert
-# sudo tee "$NGINX_CONFIG" > /dev/null <<EOF
-# server {
-#     listen 80;
-#     server_name $DOMAIN_NAME;
+sudo tee "$NGINX_CONFIG" > /dev/null <<EOF
+server {
+    listen 80;
+    server_name $DOMAIN_NAME;
 
-#     location / {
-#         root /var/www/html;
-#         index index.html index.htm;
-#     }
-# }
-# EOF
+    location / {
+        root /var/www/html;
+        index index.html index.htm;
+    }
+}
+EOF
 
-# # Create symlink
-# sudo ln -sf "$NGINX_CONFIG" /etc/nginx/sites-enabled/
-# sudo systemctl restart nginx
+# Create symlink
+sudo ln -sf "$NGINX_CONFIG" /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
 
-# # Deploy TLS certificate
-# sudo certbot --nginx -d $DOMAIN_NAME --agree-tos --email $CERTBOT_EMAIL --non-interactive
+# Deploy TLS certificate
+sudo certbot --nginx -d $DOMAIN_NAME --agree-tos --email $CERTBOT_EMAIL --non-interactive
 
 # Add config 443
 sudo tee "$NGINX_CONFIG" > /dev/null <<EOF
